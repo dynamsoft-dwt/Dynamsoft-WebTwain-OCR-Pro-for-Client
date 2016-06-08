@@ -3,7 +3,9 @@ Dynamsoft.WebTwainEnv.RegisterEvent('OnWebTwainReady', Dynamsoft_OnReady); // Re
 
 var DWObject, CurrentPath;
 var _iLeft, _iTop, _iRight, _iBottom;
-
+var CurrentPathName = unescape(location.pathname);
+CurrentPath = CurrentPathName.substring(0, CurrentPathName.lastIndexOf("/") + 1);
+		
 var OCRFindTextFlags = [
 		{ desc: "whole word", val: EnumDWT_OCRFindTextFlags.OCRFT_WHOLEWORD },
 		{ desc: "match case", val: EnumDWT_OCRFindTextFlags.OCRFT_MATCHCASE },
@@ -66,6 +68,40 @@ var OCRPDFAVersion = [
 
 ];
 
+function downloadPDFR() {
+	Dynamsoft__OnclickCloseInstallEx();
+	DWObject.Addon.PDF.Download(
+		CurrentPath + '/Resources/addon/Pdf.zip',
+		function() {/*console.log('PDF dll is installed');*/
+			if(!Dynamsoft.Lib.env.bMac) {	
+				var localOCRVersion = DWObject._innerFun('GetAddOnVersion', '["proocr"]');
+				if (localOCRVersion != Dynamsoft.ProOCRVersion) {
+					var ObjString = [];
+					ObjString.push('<div class="ds-demo-padding" id="ocr-pro-install-dlg">');
+					ObjString.push('The <strong>OCR Pro Module</strong> is not installed on this PC<br />Please click the button below to get it installed');
+					ObjString.push('<p class="ds-demo-center"><input type="button" value="Install OCR Pro" onclick="downloadOCRPro();" class="ds-demo-blue ds-demo-btn-large ds-demo-border-0 ds-demo-margin" /><hr></p>');
+					ObjString.push('<i><strong>The installation is a one-time process</strong> <br />It might take some time because the module is around <strong>90MB</strong> in size.</i>');
+					ObjString.push('</div>');
+					Dynamsoft.WebTwainEnv.ShowDialog(400,310, ObjString.join(''));
+				}
+			}
+		},
+		function(errorCode, errorString) {
+			console.log(errorString);
+		}
+	);
+}		
+function downloadOCRPro() {
+	Dynamsoft__OnclickCloseInstallEx();
+	DWObject.Addon.OCRPro.Download(
+		CurrentPath + '/Resources/addon/OCRPro.zip',
+		function() {/*console.log('PDF dll is installed');*/},
+		function(errorCode, errorString) {
+			console.log(errorString);
+		}
+	);
+};
+
 function Dynamsoft_OnReady() {
 	DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer'); // Get the Dynamic Web TWAIN object that is embeded in the div with id 'dwtcontrolContainer'
 	if (DWObject) {
@@ -96,19 +132,19 @@ function Dynamsoft_OnReady() {
 
 		DWObject.RegisterEvent("OnTopImageInTheViewChanged", Dynamsoft_OnTopImageInTheViewChanged);
 		/*
-		* Make sure the PDF Rasterizer add-on is already installed, please note that the file Pdf.zip is already part of the sample
+		* Make sure the PDF Rasterizer and OCR Pro add-on are already installedsample
 		*/
-		var CurrentPathName = unescape(location.pathname),PDFDLLDownloadURL;
-		CurrentPath = CurrentPathName.substring(0, CurrentPathName.lastIndexOf("/") + 1);
-		if(!Dynamsoft.Lib.env.bMac) {			
-			PDFDLLDownloadURL = CurrentPath + '/Resources/addon/Pdf.zip';
-			DWObject.Addon.PDF.Download(
-				PDFDLLDownloadURL,
-				function() {/*console.log('PDF dll is installed');*/},
-				function(errorCode, errorString) {
-					console.log(errorString);
-				}
-			);
+		if(!Dynamsoft.Lib.env.bMac) {	
+			var localPDFRVersion = DWObject._innerFun('GetAddOnVersion', '["pdf"]');	
+			if (localPDFRVersion != Dynamsoft.PdfVersion) {
+				var ObjString = [];
+				ObjString.push('<div class="ds-demo-padding" id="pdfr-install-dlg">');
+				ObjString.push('The <strong>PDF Rasterizer</strong> is not installed on this PC<br />Please click the button below to get it installed');
+				ObjString.push('<p class="ds-demo-center"><input type="button" value="Install PDF Rasterizer" onclick="downloadPDFR();" class="ds-demo-blue ds-demo-btn-large ds-demo-border-0 ds-demo-margin ds-font-size-18" /><hr></p>');
+				ObjString.push('<i><strong>The installation is a one-time process</strong> <br />It might take some time depending on your network.</i>');
+				ObjString.push('</div>');
+				Dynamsoft.WebTwainEnv.ShowDialog(400,310, ObjString.join(''));
+			}
 		}
 	}
 }
@@ -154,6 +190,10 @@ function LoadImages() {
 		DWObject.IfShowFileDialog = false;
 		function ds_load_pdfa(bSave, filesCount, index, path, filename){
 			nCount = filesCount;
+			if(nCount == -1) {
+				console.log('user cancelled');
+				Dynamsoft.Lib.detect.hideMask();
+			}
 			var filePath = path + "\\" +  filename;
 			if((filename.substr(filename.lastIndexOf('.') + 1)).toLowerCase() == 'pdf'){
 				DWObject.Addon.PDF.SetResolution(200);   
@@ -313,58 +353,43 @@ function DoOCRInner() {
 			alert("Please scan or load an image first.");
 			return;
 		}
-
-		//Call DWObject.Addon.OCRPro.Download(url) to download ocr module to local.
-
-	var OnSuccess = function() {
-			var settings = Dynamsoft.WebTwain.Addon.OCRPro.NewSettings();
-			var bMultipage = false;
-			settings.RecognitionModule = OCRRecognitionModule[document.getElementById("ddlOCRRecognitionModule").selectedIndex].val;
-			settings.Languages = OCRLanguages[document.getElementById("ddlLanguages").selectedIndex].val;
-			settings.OutputFormat = OCROutputFormat[document.getElementById("ddlOCROutputFormat").selectedIndex].val;
-			var selectValue = OCROutputFormat[document.getElementById("ddlOCROutputFormat").selectedIndex].val;
-			if (selectValue == EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF ||
-				selectValue == EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF_MRC) {
-				bMultipage = true;
-				settings.PDFVersion = OCRPDFVersion[document.getElementById("ddlPDFVersion").selectedIndex].val;
-				settings.PDFAVersion = OCRPDFAVersion[document.getElementById("ddlPDFAVersion").selectedIndex].val;
-			}
-			if (document.getElementById("chkUseRedaction").checked) {
-				settings.Redaction.FindText = document.getElementById("txtFindText").value;
-				settings.Redaction.FindTextFlags = OCRFindTextFlags[document.getElementById("ddlFindTextFlags").selectedIndex].val;
-				settings.Redaction.FindTextAction = OCRFindTextAction[document.getElementById("ddlFindTextAction").selectedIndex].val;
-			}
-			DWObject.Addon.OCRPro.Settings = settings;
-
-			//Get ocr result.
-			if (_iLeft != 0 || _iTop != 0 || _iRight != 0 || _iBottom != 0) {
-
-				var zoneArray = [];
-				var zone = Dynamsoft.WebTwain.Addon.OCRPro.NewOCRZone(_iLeft, _iTop, _iRight, _iBottom);
-				zoneArray.push(zone);
-				DWObject.Addon.OCRPro.RecognizeRect(DWObject.CurrentImageIndexInBuffer, zoneArray, GetRectOCRProInfo, GetErrorInfo);
-			}
-			else if(bMultipage) {
-				var nCount = DWObject.HowManyImagesInBuffer;
-				DWObject.SelectedImagesCount = nCount;
-				for(var i = 0; i < nCount;i++) {
-					 DWObject.SetSelectedImageIndex(i,i);
-				}
-				DWObject.Addon.OCRPro.RecognizeSelectedImages(OnOCRSelectedImagesSuccess, GetErrorInfo);
-			}
-			else {
-				DWObject.Addon.OCRPro.Recognize(DWObject.CurrentImageIndexInBuffer, GetOCRProInfo, GetErrorInfo);
-			}
+		var settings = Dynamsoft.WebTwain.Addon.OCRPro.NewSettings();
+		var bMultipage = false;
+		settings.RecognitionModule = OCRRecognitionModule[document.getElementById("ddlOCRRecognitionModule").selectedIndex].val;
+		settings.Languages = OCRLanguages[document.getElementById("ddlLanguages").selectedIndex].val;
+		settings.OutputFormat = OCROutputFormat[document.getElementById("ddlOCROutputFormat").selectedIndex].val;
+		var selectValue = OCROutputFormat[document.getElementById("ddlOCROutputFormat").selectedIndex].val;
+		if (selectValue == EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF ||
+			selectValue == EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF_MRC) {
+			bMultipage = true;
+			settings.PDFVersion = OCRPDFVersion[document.getElementById("ddlPDFVersion").selectedIndex].val;
+			settings.PDFAVersion = OCRPDFAVersion[document.getElementById("ddlPDFAVersion").selectedIndex].val;
 		}
+		if (document.getElementById("chkUseRedaction").checked) {
+			settings.Redaction.FindText = document.getElementById("txtFindText").value;
+			settings.Redaction.FindTextFlags = OCRFindTextFlags[document.getElementById("ddlFindTextFlags").selectedIndex].val;
+			settings.Redaction.FindTextAction = OCRFindTextAction[document.getElementById("ddlFindTextAction").selectedIndex].val;
+		}
+		DWObject.Addon.OCRPro.Settings = settings;
 
-	};
+		//Get ocr result.
+		if (_iLeft != 0 || _iTop != 0 || _iRight != 0 || _iBottom != 0) {
 
-	var OnFailure = function(errorCode, errorString) {
-		alert("onfailure!");
-
-	};
-
-	var CurrentPathName = unescape(location.pathname);
-	CurrentPath = CurrentPathName.substring(0, CurrentPathName.lastIndexOf("/") + 1);
-	DWObject.Addon.OCRPro.Download(CurrentPath + "/Resources/addon/OCRPro.zip", OnSuccess, OnFailure);
+			var zoneArray = [];
+			var zone = Dynamsoft.WebTwain.Addon.OCRPro.NewOCRZone(_iLeft, _iTop, _iRight, _iBottom);
+			zoneArray.push(zone);
+			DWObject.Addon.OCRPro.RecognizeRect(DWObject.CurrentImageIndexInBuffer, zoneArray, GetRectOCRProInfo, GetErrorInfo);
+		}
+		else if(bMultipage) {
+			var nCount = DWObject.HowManyImagesInBuffer;
+			DWObject.SelectedImagesCount = nCount;
+			for(var i = 0; i < nCount;i++) {
+				 DWObject.SetSelectedImageIndex(i,i);
+			}
+			DWObject.Addon.OCRPro.RecognizeSelectedImages(OnOCRSelectedImagesSuccess, GetErrorInfo);
+		}
+		else {
+			DWObject.Addon.OCRPro.Recognize(DWObject.CurrentImageIndexInBuffer, GetOCRProInfo, GetErrorInfo);
+		}
+	}
 }

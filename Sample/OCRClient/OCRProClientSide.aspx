@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div>
-                <input type="button" value="OCR" onclick="DoOCR();" class="ds-demo-blue ds-demo-btn-large ds-demo-border-0 ds-demo-margin" />
+                <input type="button" value="OCR and Save" onclick="DoOCR();" class="ds-demo-blue ds-demo-btn-large ds-demo-border-0 ds-demo-margin" />
             </div>
             <div style="display: none;">
                 <input type="file" id="fileInput" />
