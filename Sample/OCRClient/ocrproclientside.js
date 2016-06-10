@@ -73,24 +73,27 @@ function downloadPDFR() {
 	DWObject.Addon.PDF.Download(
 		CurrentPath + '/Resources/addon/Pdf.zip',
 		function() {/*console.log('PDF dll is installed');*/
-			if(!Dynamsoft.Lib.env.bMac) {	
-				var localOCRVersion = DWObject._innerFun('GetAddOnVersion', '["proocr"]');
-				if (localOCRVersion != Dynamsoft.ProOCRVersion) {
-					var ObjString = [];
-					ObjString.push('<div class="ds-demo-padding" id="ocr-pro-install-dlg">');
-					ObjString.push('The <strong>OCR Pro Module</strong> is not installed on this PC<br />Please click the button below to get it installed');
-					ObjString.push('<p class="ds-demo-center"><input type="button" value="Install OCR Pro" onclick="downloadOCRPro();" class="ds-demo-blue ds-demo-btn-large ds-demo-border-0 ds-demo-margin" /><hr></p>');
-					ObjString.push('<i><strong>The installation is a one-time process</strong> <br />It might take some time because the module is around <strong>90MB</strong> in size.</i>');
-					ObjString.push('</div>');
-					Dynamsoft.WebTwainEnv.ShowDialog(400,310, ObjString.join(''));
-				}
-			}
+			downloadOCRPro_btn();
 		},
 		function(errorCode, errorString) {
 			console.log(errorString);
 		}
 	);
-}		
+}	
+	
+function downloadOCRPro_btn(){
+	var localOCRVersion = DWObject._innerFun('GetAddOnVersion', '["proocr"]');
+	if (localOCRVersion != Dynamsoft.ProOCRVersion) {
+		var ObjString = [];
+		ObjString.push('<div class="ds-demo-padding" id="ocr-pro-install-dlg">');
+		ObjString.push('The <strong>OCR Pro Module</strong> is not installed on this PC<br />Please click the button below to get it installed');
+		ObjString.push('<p class="ds-demo-center"><input type="button" value="Install OCR Pro" onclick="downloadOCRPro();" class="ds-demo-blue ds-demo-btn-large ds-demo-border-0 ds-demo-margin" /><hr></p>');
+		ObjString.push('<i><strong>The installation is a one-time process</strong> <br />It might take some time because the module is around <strong>90MB</strong> in size.</i>');
+		ObjString.push('</div>');
+		Dynamsoft.WebTwainEnv.ShowDialog(400,310, ObjString.join(''));
+	}
+}
+
 function downloadOCRPro() {
 	Dynamsoft__OnclickCloseInstallEx();
 	DWObject.Addon.OCRPro.Download(
@@ -144,6 +147,9 @@ function Dynamsoft_OnReady() {
 				ObjString.push('<i><strong>The installation is a one-time process</strong> <br />It might take some time depending on your network.</i>');
 				ObjString.push('</div>');
 				Dynamsoft.WebTwainEnv.ShowDialog(400,310, ObjString.join(''));
+			}
+			else {
+				downloadOCRPro_btn();
 			}
 		}
 	}
