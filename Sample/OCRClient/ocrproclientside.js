@@ -2,7 +2,7 @@ Dynamsoft.WebTwainEnv.RegisterEvent('OnWebTwainReady', Dynamsoft_OnReady); // Re
 
 
 var DWObject, CurrentPath;
-var _iLeft, _iTop, _iRight, _iBottom;
+var _iLeft, _iTop, _iRight, _iBottom, _ocrResultFileType;
 var CurrentPathName = unescape(location.pathname);
 CurrentPath = CurrentPathName.substring(0, CurrentPathName.lastIndexOf("/") + 1);
 		
@@ -297,7 +297,7 @@ function GetOCRProInfoInner(result) {
 
 			}
 		}
-	   console.log(bRet);  //Get OCR result.
+	   //console.log(bRet);  //Get OCR result.
 	}
 
 	if(savePath.length > 1)
@@ -307,6 +307,9 @@ function GetOCRProInfoInner(result) {
 var savePath;
 function ds_start_ocr(bSave, count, index, path, name) {
 	DWObject.UnregisterEvent('OnGetFilePath', ds_start_ocr);
+	if(name.substr(-4) != _ocrResultFileType) {
+		name += _ocrResultFileType;
+	}
 	if (path.length > 0 || name.length > 0)
 		savePath = path + "\\" + name; 
 	if (bSave == true && index != -1032) //if cancel, do not ocr
@@ -321,31 +324,31 @@ function DoOCR() {
 		}
 
 		var saveTye = "";
-		var fileType = "";
+		_ocrResultFileType = "";
 		switch (OCROutputFormat[document.getElementById("ddlOCROutputFormat").selectedIndex].val) {
 			case EnumDWT_OCRProOutputFormat.OCRPFT_TXTS:
-				fileType = ".txt";
+				_ocrResultFileType = ".txt";
 				saveTye = "Plain Text(*.txt)";
 				break;
 			case EnumDWT_OCRProOutputFormat.OCRPFT_TXTCSV:
-				fileType = ".csv";
+				_ocrResultFileType = ".csv";
 				saveTye = "CSV(*.csv)";
 				break;  
 			case EnumDWT_OCRProOutputFormat.OCRPFT_TXTF:
-				fileType = ".rtf";
+				_ocrResultFileType = ".rtf";
 				saveTye = "Rich Text Format(*.rtf)";
 				break; 
 			case EnumDWT_OCRProOutputFormat.OCRPFT_XML:
-				fileType = ".xml";
+				_ocrResultFileType = ".xml";
 				saveTye = "XML Document(*.xml)";
 				break; 
 			case EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF:
 			case EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF_MRC:
-				fileType = ".pdf";
+				_ocrResultFileType = ".pdf";
 				saveTye = "PDF(*.pdf)";
 				break;     
 		}
-		var fileName = "result" + fileType;
+		var fileName = "result" + _ocrResultFileType;
 		DWObject.RegisterEvent("OnGetFilePath", ds_start_ocr);
 		DWObject.ShowFileDialog(true, saveTye, 0, "", fileName, true, false, 0); 
 
