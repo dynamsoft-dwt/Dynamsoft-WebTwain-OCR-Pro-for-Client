@@ -6,7 +6,7 @@ Dynamsoft Team
 2016-07-13
 
 #### See it in Action
-You can check out how it works on this <a target="_blank" href="http://www.dynamsoft.com/Samples/DWT/Scan-Documents-and-Do-Client-side-OCR-Pro/OCRProClientSide.aspx">demo page</a>.
+You can check out how it works on this <a target="_blank" href="http://www.dynamsoft.com/demo/OCR/OCRProClientSide.aspx">demo page</a>.
 
 
 # Download Source Code

@@ -91,6 +91,7 @@ function downloadOCRPro_btn(){
 		ObjString.push('<i><strong>The installation is a one-time process</strong> <br />It might take some time because the module is around <strong>90MB</strong> in size.</i>');
 		ObjString.push('</div>');
 		Dynamsoft.WebTwainEnv.ShowDialog(400,310, ObjString.join(''));
+		document.getElementsByClassName("ClosetblCanNotScan")[0].style.display = "none";
 	}
 }
 
@@ -147,6 +148,7 @@ function Dynamsoft_OnReady() {
 				ObjString.push('<i><strong>The installation is a one-time process</strong> <br />It might take some time depending on your network.</i>');
 				ObjString.push('</div>');
 				Dynamsoft.WebTwainEnv.ShowDialog(400,310, ObjString.join(''));
+				document.getElementsByClassName("ClosetblCanNotScan")[0].style.display = "none";
 			}
 			else {
 				downloadOCRPro_btn();
