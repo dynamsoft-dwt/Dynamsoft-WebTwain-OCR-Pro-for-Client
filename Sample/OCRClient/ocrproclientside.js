@@ -79,7 +79,7 @@ function downloadPDFR() {
 			console.log(errorString);
 		}
 	);
-}	
+}
 	
 function downloadOCRPro_btn(){
 	var localOCRVersion = DWObject._innerFun('GetAddOnVersion', '["proocr"]');
