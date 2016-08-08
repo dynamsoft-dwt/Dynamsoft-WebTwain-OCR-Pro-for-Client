@@ -3,15 +3,11 @@
 This sample demonstrates how to use Dynamic Web TWAIN's OCR Professional add-on to do OCR on the client side (within client-side browsers).
 ####
 Dynamsoft Team
-2016-07-13
-
-#### See it in Action
-You can check out how it works on this <a target="_blank" href="http://www.dynamsoft.com/demo/OCR/OCRProClientSide.aspx">demo page</a>.
-
+2016-06-06
 
 # Download Source Code
 
-In order to test the demo, you will need to download the complete code <a href="http://www.dynamsoft.com/Samples/DWT/Scan-Documents-and-Do-Client-side-OCR-Pro.zip" target="_blank">here</a>.
+In order to test the demo, you will need to download the complete code <a href="http://www.dynamsoft.com/Samples/DWT/Dynamsoft-WebTwain-OCR-Pro-for-Client.zip" target="_blank">here</a>.
 
 
 # How to use the demo

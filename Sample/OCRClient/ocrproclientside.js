@@ -85,9 +85,9 @@ function downloadOCRPro_btn(){
 	var localOCRVersion = DWObject._innerFun('GetAddOnVersion', '["proocr"]');
 	if (localOCRVersion != Dynamsoft.ProOCRVersion) {
 		var ObjString = [];
-		ObjString.push('<div class="ds-demo-padding" id="ocr-pro-install-dlg">');
+		ObjString.push('<div class="p15" id="ocr-pro-install-dlg">');
 		ObjString.push('The <strong>OCR Pro Module</strong> is not installed on this PC<br />Please click the button below to get it installed');
-		ObjString.push('<p class="ds-demo-center"><input type="button" value="Install OCR Pro" onclick="downloadOCRPro();" class="ds-demo-blue ds-demo-btn-large ds-demo-border-0 ds-demo-margin" /><hr></p>');
+		ObjString.push('<p class="tc mt15 mb15"><input type="button" value="Install OCR Pro" onclick="downloadOCRPro();" class="btn lgBtn bgBlue" /><hr></p>');
 		ObjString.push('<i><strong>The installation is a one-time process</strong> <br />It might take some time because the module is around <strong>90MB</strong> in size.</i>');
 		ObjString.push('</div>');
 		Dynamsoft.WebTwainEnv.ShowDialog(400,310, ObjString.join(''));
@@ -142,9 +142,9 @@ function Dynamsoft_OnReady() {
 			var localPDFRVersion = DWObject._innerFun('GetAddOnVersion', '["pdf"]');	
 			if (localPDFRVersion != Dynamsoft.PdfVersion) {
 				var ObjString = [];
-				ObjString.push('<div class="ds-demo-padding" id="pdfr-install-dlg">');
+				ObjString.push('<div class="p15" id="pdfr-install-dlg">');
 				ObjString.push('The <strong>PDF Rasterizer</strong> is not installed on this PC<br />Please click the button below to get it installed');
-				ObjString.push('<p class="ds-demo-center"><input type="button" value="Install PDF Rasterizer" onclick="downloadPDFR();" class="ds-demo-blue ds-demo-btn-large ds-demo-border-0 ds-demo-margin ds-font-size-18" /><hr></p>');
+				ObjString.push('<p class="tc mt15 mb15"><input type="button" value="Install PDF Rasterizer" onclick="downloadPDFR();" class="btn lgBtn bgBlue" /><hr></p>');
 				ObjString.push('<i><strong>The installation is a one-time process</strong> <br />It might take some time depending on your network.</i>');
 				ObjString.push('</div>');
 				Dynamsoft.WebTwainEnv.ShowDialog(400,310, ObjString.join(''));
