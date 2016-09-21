@@ -1,4 +1,7 @@
-/Resources/addon/pdf.zip
-/Resources/addon/OCRPro.zip
-/Resources/DynamicWebTWAINHTML5Edition.exe
+/Resources/MSI/
+/Resources/addon/*.zip
+/Resources/*.cab
+/Resources/*.exe
+/Resources/*.pkg
+/Resources/*.msi
 /Resources/dynamsoft.webtwain.initiate.js
