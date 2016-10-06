@@ -71,7 +71,7 @@ var OCRPDFAVersion = [
 function downloadPDFR() {
 	Dynamsoft__OnclickCloseInstallEx();
 	DWObject.Addon.PDF.Download(
-		CurrentPath + '/Resources/addon/Pdf.zip',
+		location.protocol + '//' + location.hostname + ':' + location.port + CurrentPath + 'Resources/addon/Pdf.zip',
 		function() {/*console.log('PDF dll is installed');*/
 			downloadOCRPro_btn();
 		},
@@ -98,7 +98,7 @@ function downloadOCRPro_btn(){
 function downloadOCRPro() {
 	Dynamsoft__OnclickCloseInstallEx();
 	DWObject.Addon.OCRPro.Download(
-		CurrentPath + '/Resources/addon/OCRPro.zip',
+		location.protocol + '//' + location.hostname + ':' + location.port + CurrentPath + 'Resources/addon/OCRPro.zip',
 		function() {/*console.log('PDF dll is installed');*/},
 		function(errorCode, errorString) {
 			console.log(errorString);
@@ -139,7 +139,15 @@ function Dynamsoft_OnReady() {
 		* Make sure the PDF Rasterizer and OCR Pro add-on are already installedsample
 		*/
 		if(!Dynamsoft.Lib.env.bMac) {	
-			var localPDFRVersion = DWObject._innerFun('GetAddOnVersion', '["pdf"]');	
+			var localPDFRVersion = '';
+			if(Dynamsoft.Lib.product.bChromeEdition){
+				localPDFRVersion = DWObject._innerFun('GetAddOnVersion', '["pdf"]');
+			}
+            else {
+				alert("Please note that your current browser doesn't support the OCRPro add-on, please use modern browsers like Chrome, Firefox or IE 11.");
+				return;
+                localPDFRVersion = DWObject.getSWebTwain().GetAddonVersion("pdf");
+            }	
 			if (localPDFRVersion != Dynamsoft.PdfVersion) {
 				var ObjString = [];
 				ObjString.push('<div class="p15" id="pdfr-install-dlg">');
