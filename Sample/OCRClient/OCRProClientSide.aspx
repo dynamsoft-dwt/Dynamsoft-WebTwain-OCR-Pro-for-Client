@@ -3,7 +3,7 @@
 <head>
 <title>Online OCR | Dynamic Web TWAIN SDK | Dynamsoft</title>
 <meta http-equiv="description" content="The sample demonstrates how to scan documents or import local images in browsers with Dynamic Web TWAIN, and then perform OCR at the client side." />
-<script src="Resources/dynamsoft.webtwain.config.js"></script>
+<script src="Resources/dynamsoft.webtwain.config.js?new=true"></script>
 <script src="Resources/dynamsoft.webtwain.initiate.js"></script>
 <script src="Resources/addon/dynamsoft.webtwain.addon.ocrpro.js"> </script>
 <script src="Resources/addon/dynamsoft.webtwain.addon.pdf.js"></script>

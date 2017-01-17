@@ -35,8 +35,8 @@ function _show_install_dialog(ProductName, objInstallerUrl, bHTML5, iPlatform, b
 	
 	if (bHTML5 && iPlatform == EnumDWT_PlatformType.enumLinux)
 	{
-		ObjString.push('<div style="margin:10px 0 0 5px;"><div id="dwt-install-url-div"><div><input id="dwt-install-url-deb" name="dwt-install-url" type="radio" onclick="dwt_change_install_url(\'' + objInstallerUrl['deb'] + '\')" checked="checked" /><label for="dwt-install-url-deb">64 bit .deb (For Debian/Ubuntu)</label></div>');
-		ObjString.push('<div><input id="dwt-install-url-rpm" name="dwt-install-url" type="radio" onclick="dwt_change_install_url(\'' + objInstallerUrl['rpm'] + '\')" /><label for="dwt-install-url-rpm">64 bit .rpm (For Fedora/openSUSE)</label></div></div></div>');
+		ObjString.push('<div style="margin:10px 0 0 5px;"><div id="dwt-install-url-div"><div><input id="dwt-install-url-deb" name="dwt-install-url" type="radio" onclick="dwt_change_install_url(\'' + objInstallerUrl['deb'] + '\')" checked="checked" /><label for="dwt-install-url-deb">64 bit .deb (For Ubuntu/Debian)</label></div>');
+		ObjString.push('<div><input id="dwt-install-url-rpm" name="dwt-install-url" type="radio" onclick="dwt_change_install_url(\'' + objInstallerUrl['rpm'] + '\')" /><label for="dwt-install-url-rpm">64 bit .rpm (For Fedora)</label></div></div></div>');
 	}
 	else
 	{
@@ -123,7 +123,7 @@ function OnWebTwainNeedUpgradeCallback(ProductName, objInstallerUrl, bHTML5, iPl
 	if (bHTML5 && iPlatform == EnumDWT_PlatformType.enumLinux)
 	{
 		ObjString.push('<div style="margin:10px 0 0 5px;"><div id="dwt-install-url-div"><div><input id="dwt-install-url-deb" name="dwt-install-url" type="radio" onclick="dwt_change_install_url(\'' + objInstallerUrl['deb'] + '\')" checked="checked" /><label for="dwt-install-url-deb">64 bit .deb (For Ubuntu/Debian)</label></div>');
-		ObjString.push('<div><input id="dwt-install-url-rpm" name="dwt-install-url" type="radio" onclick="dwt_change_install_url(\'' + objInstallerUrl['rpm'] + '\')" /><label for="dwt-install-url-rpm">64 bit .rpm (For Fedora/CentOS)</label></div></div></div>');
+		ObjString.push('<div><input id="dwt-install-url-rpm" name="dwt-install-url" type="radio" onclick="dwt_change_install_url(\'' + objInstallerUrl['rpm'] + '\')" /><label for="dwt-install-url-rpm">64 bit .rpm (For Fedora)</label></div></div></div>');
 		_height = 260;
 	}
 	else
@@ -138,7 +138,18 @@ function OnWebTwainNeedUpgradeCallback(ProductName, objInstallerUrl, bHTML5, iPl
 	ObjString.push('<p></p>');
 	
 	if(bHTML5){
-		ObjString.push('<div class="dwt-red">Please REFRESH your browser after the upgrade.</div>');	
+		
+		var ua = navigator.userAgent.toLowerCase(),
+			_bFirefox = ua.indexOf('firefox')>=0,
+			strRefreshOrRestart;
+		
+		if(_bFirefox)
+			strRefreshOrRestart = 'RESTART';
+		else
+			strRefreshOrRestart = 'REFRESH';
+
+		
+		ObjString.push('<div class="dwt-red">Please ' + strRefreshOrRestart + ' your browser after the upgrade.</div>');	
 	} else {
 		
 		if(bIE){

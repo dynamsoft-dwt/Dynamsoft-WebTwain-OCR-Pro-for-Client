@@ -70,8 +70,9 @@ var OCRPDFAVersion = [
 
 function downloadPDFR() {
 	Dynamsoft__OnclickCloseInstallEx();
+	var _strPort = location.port == "" ? 80 : location.port;
 	DWObject.Addon.PDF.Download(
-		location.protocol + '//' + location.hostname + ':' + location.port + CurrentPath + 'Resources/addon/Pdf.zip',
+		location.protocol + '//' + location.hostname + ':' + _strPort + CurrentPath + 'Resources/addon/Pdf.zip',
 		function() {/*console.log('PDF dll is installed');*/
 			downloadOCRPro_btn();
 		},
@@ -97,8 +98,9 @@ function downloadOCRPro_btn(){
 
 function downloadOCRPro() {
 	Dynamsoft__OnclickCloseInstallEx();
+	var _strPort = location.port == "" ? 80 : location.port;
 	DWObject.Addon.OCRPro.Download(
-		location.protocol + '//' + location.hostname + ':' + location.port + CurrentPath + 'Resources/addon/OCRPro.zip',
+		location.protocol + '//' + location.hostname + ':' + _strPort + CurrentPath + 'Resources/addon/OCRPro.zip',
 		function() {/*console.log('PDF dll is installed');*/},
 		function(errorCode, errorString) {
 			console.log(errorString);

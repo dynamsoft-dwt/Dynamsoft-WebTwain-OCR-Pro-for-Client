@@ -5,9 +5,9 @@
 * Product: Dynamsoft Web Twain Addon
 * Web Site: http://www.dynamsoft.com
 *
-* Copyright 2016, Dynamsoft Corporation 
+* Copyright 2017, Dynamsoft Corporation 
 * Author: Dynamsoft Support Team
-* Version: 12.1
+* Version: 12.2
 */
 
 /** this barcode format is different with twain defined */

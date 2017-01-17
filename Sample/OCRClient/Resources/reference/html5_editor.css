@@ -360,9 +360,15 @@ dialog[open] {
 .ds-dwt-imgSizeEditor 
 {
 	text-align:left;
-	padding: 0 0 0 20px;
-	height: 140px; 
-	width:300px
+	padding: 0 0 0 15px;
+	height: 150px; 
+	width: 315px;
+	font-size: 12px;
+}
+
+.ds-dwt-imgSizeEditor input, .ds-dwt-imgSizeEditor select
+{
+	font-size: 12px;
 }
 
 .ds-dwt-EditorButton-selected
