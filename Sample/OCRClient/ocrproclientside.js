@@ -5,6 +5,8 @@ var DWObject, CurrentPath;
 var _iLeft, _iTop, _iRight, _iBottom, _ocrResultFileType;
 var CurrentPathName = unescape(location.pathname);
 CurrentPath = CurrentPathName.substring(0, CurrentPathName.lastIndexOf("/") + 1);
+var strhttp = "http:";
+var _strPort = 80;
 		
 var OCRFindTextFlags = [
 		{ desc: "whole word", val: EnumDWT_OCRFindTextFlags.OCRFT_WHOLEWORD },
@@ -12,13 +14,11 @@ var OCRFindTextFlags = [
 		{ desc: "fuzzy match", val: EnumDWT_OCRFindTextFlags.OCRFT_FUZZYMATCH }
 ];
 
-
 var OCRFindTextAction = [
 		{ desc: "highlight", val: EnumDWT_OCRFindTextAction.OCRFT_HIGHLIGHT },
 		{ desc: "strikeout", val: EnumDWT_OCRFindTextAction.OCRFT_STRIKEOUT },
 		{ desc: "mark for redact", val: EnumDWT_OCRFindTextAction.OCRFT_MARKFORREDACT }
 ];
-
 
 var OCRLanguages = [
 		{ desc: "English", val: "eng" },
@@ -70,9 +70,8 @@ var OCRPDFAVersion = [
 
 function downloadPDFR() {
 	Dynamsoft__OnclickCloseInstallEx();
-	var _strPort = location.port == "" ? 80 : location.port;
 	DWObject.Addon.PDF.Download(
-		location.protocol + '//' + location.hostname + ':' + _strPort + CurrentPath + 'Resources/addon/Pdf.zip',
+		Dynamsoft.WebTwainEnv.ResourcesPath + '/addon/Pdf.zip',
 		function() {/*console.log('PDF dll is installed');*/
 			downloadOCRPro_btn();
 		},
@@ -98,9 +97,8 @@ function downloadOCRPro_btn(){
 
 function downloadOCRPro() {
 	Dynamsoft__OnclickCloseInstallEx();
-	var _strPort = location.port == "" ? 80 : location.port;
 	DWObject.Addon.OCRPro.Download(
-		location.protocol + '//' + location.hostname + ':' + _strPort + CurrentPath + 'Resources/addon/OCRPro.zip',
+		Dynamsoft.WebTwainEnv.ResourcesPath + '/addon/OCRPro.zip',
 		function() {/*console.log('PDF dll is installed');*/},
 		function(errorCode, errorString) {
 			console.log(errorString);
@@ -113,12 +111,19 @@ function Dynamsoft_OnReady() {
 	if (DWObject) {
 		DWObject.RegisterEvent("OnImageAreaSelected", Dynamsoft_OnImageAreaSelected);
 		DWObject.RegisterEvent("OnImageAreaDeSelected", Dynamsoft_OnImageAreaDeselected);
-		
+		if("https:" == document.location.protocol) 
+			strhttp = "https:";
+		DWObject.IfSSL = Dynamsoft.Lib.detect.ssl;
+		_strPort = location.port == "" ? 80 : location.port;
+		if (Dynamsoft.Lib.detect.ssl == true)
+			_strPort = location.port == "" ? 443 : location.port;
+		DWObject.HTTPPort = _strPort;		
 		_iLeft = 0;
 		_iTop = 0;
 		_iRight = 0;
 		_iBottom = 0;
-		
+		DWObject.Width = 505;
+		DWObject.Height = 598;		
 		for (var i = 0; i < OCRFindTextFlags.length; i++)
 			document.getElementById("ddlFindTextFlags").options.add(new Option(OCRFindTextFlags[i].desc, i));
 		for (var i = 0; i < OCRFindTextAction.length; i++)
