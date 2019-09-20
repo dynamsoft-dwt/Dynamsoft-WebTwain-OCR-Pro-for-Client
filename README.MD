@@ -22,3 +22,28 @@ Thanks,
 
 Dynamsoft Team
 
+
+Basic information
+*****************
+
+Name: Scan-Documents-and-Do-Client-side-OCR-Pro
+Technology: Dynamic Web TWAIN & Dynamsoft Professional OCR
+Description: This sample demonstrates how to use Dynamic Web TWAIN's OCR Professional add-on to do OCR on the client side (within client-side browsers)
+Compatibility: Windows only, IE 11, Edge, Chrome/Firefox 27+
+Author: Dynamsoft Team
+Version: 15.0
+Date: 2019/06/27
+Support: support@dynamsoft.com
+
+
+Live demo
+*********
+https://demo.dynamsoft.com/samples/dwt/Scan-Documents-and-Do-Client-side-OCR-Pro/OCRProClientSide.aspx
+
+
+How to run
+**********
+
+1. Open OCRProClient_VS2015.sln in Visual Studio, run the solution and navigate to OCRProClientSide.aspx
+2. Install Dynamic Web TWAIN and Dynamsoft Professional OCR following the instructions on the page
+3. Test the sample
