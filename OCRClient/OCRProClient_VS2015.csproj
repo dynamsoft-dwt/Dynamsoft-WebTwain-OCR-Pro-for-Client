@@ -47,12 +47,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CheckLicense, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="CheckLicense">
       <HintPath>lib\CheckLicense.dll</HintPath>
     </Reference>
-    <Reference Include="LicenseReader, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="LicenseReader">
       <HintPath>lib\LicenseReader.dll</HintPath>
     </Reference>
     <Reference Include="System" />

@@ -21,10 +21,10 @@ window.onload = function () {
 		 * 3. Change Dynamsoft.WebTwainEnv.ResourcesPath to point to the full version 
 		 *    resource files that you obtain after purchasing a key
 		 */
-		Dynamsoft.WebTwainEnv.Trial = true;
-		Dynamsoft.WebTwainEnv.ProductKey = "t0124vQIAAFhThFIfuWvsMIozirCJTtJoF9Nugjk2fcgbWoe/0UZAxpPq0lHSddtG0eXm3jctDjjTA0iSgQ4f37y86xyHur24PA6YkTnsGOn9tVZjPybzZy/uzNEFN/KNDBjzDbl9BL3dE/zOj5EBY74ht0+7s5qyKNIBxcmLIA=="
+		Dynamsoft.WebTwainEnv.Trial = false;
+
 		//Dynamsoft.WebTwainEnv.ProductKey = "A-Valid-Product-Key";
-		//Dynamsoft.WebTwainEnv.ResourcesPath = "https://tst.dynamsoft.com/libs/dwt/15.2";
+		//Dynamsoft.WebTwainEnv.ResourcesPath = "https://tst.dynamsoft.com/libs/dwt/15.3.1";
 
 		Dynamsoft.WebTwainEnv.Load();
 	}

@@ -6,7 +6,7 @@
     <meta http-equiv="description"
         content="The sample demonstrates how to scan documents or import local images in browsers with Dynamic Web TWAIN, and then perform OCR at the client side." />
     <script src="https://unpkg.com/dwt/dist/dynamsoft.webtwain.min.js"> </script>
-    <script src="https://tst.dynamsoft.com/libs/dwt/15.2/OCRPResources/dynamsoft.webtwain.addon.ocrpro.js"> </script>
+    <script src="https://tst.dynamsoft.com/libs/dwt/15.3.1/OCRPResources/dynamsoft.webtwain.addon.ocrpro.js"> </script>
     <link rel="stylesheet" href="Style/ds.demo.css">
 </head>
 

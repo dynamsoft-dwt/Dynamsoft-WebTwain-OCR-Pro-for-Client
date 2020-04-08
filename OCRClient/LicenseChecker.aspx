@@ -1,1 +1,1 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LicenseChecker.aspx.cs" Inherits="Dynamsoft.LicenseChecker" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LicenseChecker.aspx.cs" Inherits="Dynamsoft.LicenseChecker" %>
