@@ -16,15 +16,11 @@ window.onload = function () {
 		Dynamsoft.WebTwainEnv.RegisterEvent('OnWebTwainReady', Dynamsoft_OnReady);
 		/**
 		 * In order to use the full version, do the following
-		 * 1. Change Dynamsoft.WebTwainEnv.Trial to false
-		 * 2. Replace A-Valid-Product-Key with a full version key
-		 * 3. Change Dynamsoft.WebTwainEnv.ResourcesPath to point to the full version 
-		 *    resource files that you obtain after purchasing a key
+		 *  Replace Dynamsoft.WebTwainEnv.ProductKey with a full version key
 		 */
-		Dynamsoft.WebTwainEnv.Trial = false;
 
-		//Dynamsoft.WebTwainEnv.ProductKey = "A-Valid-Product-Key";
-		//Dynamsoft.WebTwainEnv.ResourcesPath = "https://tst.dynamsoft.com/libs/dwt/15.3.1";
+		Dynamsoft.WebTwainEnv.ProductKey = "t0136mQIAAD2gOkUKzvfNDnBYrZUrXIKpRrYxuthOZ7VEaKTA+ouRnhFniVBEwDUZZ4dLfajnAUqWbG8xIV6utXTsc5ErxS+ZGgafIqaf8iNdjJ5mLobV4E+fBedDzGjAsG/KXHiYXdt5rkYDhn3TzAPz30u7X2w1jzwZDRj2Tc1zN8hmQqQDLASFoQ==";
+		//Dynamsoft.WebTwainEnv.ResourcesPath = "Resources" ;
 
 		Dynamsoft.WebTwainEnv.Load();
 	}
@@ -103,11 +99,7 @@ function downloadOCRPro_btn() {
 
 function downloadOCRPro() {
 	DCP_DWT_OnClickCloseInstall();
-	var strOCRPath = "";
-	if (dynamsoft.dcp.b64bit)
-		strOCRPath = Dynamsoft.WebTwainEnv.ResourcesPath + "/OCRPResources/OCRProx64.zip";
-	else
-		strOCRPath = Dynamsoft.WebTwainEnv.ResourcesPath + "/OCRPResources/OCRPro.zip";
+	var strOCRPath = "https://tst.dynamsoft.com/libs/ocrp/OCRProx64.zip";
 
 	DWObject.Addon.OCRPro.Download(
 		strOCRPath,
