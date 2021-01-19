@@ -20,7 +20,7 @@ window.onload = function () {
 		 */
 
 		Dynamsoft.WebTwainEnv.ProductKey = "t00901wAAAF+u0oFLI39wRNB580cu3kJSIZtbAcR5aCChp+BFa+RGTGv4L2zaA7Q4fzLjNbZJF55lzg9BdnPG5aZjeJPOJUTwD+r5izfQJtguoC4BNSFofgBZwyta";
-		//Dynamsoft.WebTwainEnv.ResourcesPath = "Resources" ;
+		Dynamsoft.WebTwainEnv.ResourcesPath = 'https://unpkg.com/dwt/dist/';
 
 		Dynamsoft.WebTwainEnv.Load();
 	}
