@@ -7,35 +7,35 @@ window.onload = function () {
 		ObjString.push('<div class="p15">');
 		ObjString.push("Please note that the sample doesn't work on your current browser, please use a modern browser like Chrome, Firefox, etc. on Windows");
 		ObjString.push('</div>');
-		Dynamsoft.WebTwainEnv.ShowDialog(400, 180, ObjString.join(''));
+		Dynamsoft.DWT.ShowDialog(400, 180, ObjString.join(''));
 		if (document.getElementsByClassName("dynamsoft-dialog-close"))
 			document.getElementsByClassName("dynamsoft-dialog-close")[0].style.display = "none";
 	} else {
-		Dynamsoft.WebTwainEnv.AutoLoad = false;
-		Dynamsoft.WebTwainEnv.Containers = [{ ContainerId: 'dwtcontrolContainer', Width: '100%', Height: '600px' }];
-		Dynamsoft.WebTwainEnv.RegisterEvent('OnWebTwainReady', Dynamsoft_OnReady);
+		Dynamsoft.DWT.AutoLoad = false;
+		Dynamsoft.DWT.Containers = [{ ContainerId: 'dwtcontrolContainer', Width: '100%', Height: '600px' }];
+		Dynamsoft.DWT.RegisterEvent('OnWebTwainReady', Dynamsoft_OnReady);
 		/**
 		 * In order to use the full version, do the following
-		 *  Replace Dynamsoft.WebTwainEnv.ProductKey with a full version key
+		 *  Replace Dynamsoft.DWT.ProductKey with a full version key
 		 */
 
-		Dynamsoft.WebTwainEnv.ProductKey = "t00901wAAAF+u0oFLI39wRNB580cu3kJSIZtbAcR5aCChp+BFa+RGTGv4L2zaA7Q4fzLjNbZJF55lzg9BdnPG5aZjeJPOJUTwD+r5izfQJtguoC4BNSFofgBZwyta";
-		Dynamsoft.WebTwainEnv.ResourcesPath = 'https://unpkg.com/dwt/dist/';
+		Dynamsoft.DWT.ProductKey = "t00891wAAAEFI4LxiTj1i25NNRIf2JmEOrbXv3jMNfvvxAuMh9vm8+OxP/GoAFy1qDRebTFKcW0OsELrReNW7oVZUcKOYNorvws58twDvIE9Q0wAmJ2XcbmcVK6Q=";
+		Dynamsoft.DWT.ResourcesPath = 'https://unpkg.com/dwt/dist/';
 
-		Dynamsoft.WebTwainEnv.Load();
+		Dynamsoft.DWT.Load();
 	}
 };
 
 var DWObject, ObjString, arySelectedAreas = [], bMultipage, bClearResult = true, _ocrResultFileType,
 	OCRFindTextFlags = [
-		{ desc: "whole word", val: EnumDWT_OCRFindTextFlags.OCRFT_WHOLEWORD },
-		{ desc: "match case", val: EnumDWT_OCRFindTextFlags.OCRFT_MATCHCASE },
-		{ desc: "fuzzy match", val: EnumDWT_OCRFindTextFlags.OCRFT_FUZZYMATCH }
+		{ desc: "whole word", val: Dynamsoft.DWT.EnumDWT_OCRFindTextFlags.OCRFT_WHOLEWORD },
+		{ desc: "match case", val: Dynamsoft.DWT.EnumDWT_OCRFindTextFlags.OCRFT_MATCHCASE },
+		{ desc: "fuzzy match", val: Dynamsoft.DWT.EnumDWT_OCRFindTextFlags.OCRFT_FUZZYMATCH }
 	],
 	OCRFindTextAction = [
-		{ desc: "highlight", val: EnumDWT_OCRFindTextAction.OCRFT_HIGHLIGHT },
-		{ desc: "strikeout", val: EnumDWT_OCRFindTextAction.OCRFT_STRIKEOUT },
-		{ desc: "mark for redact", val: EnumDWT_OCRFindTextAction.OCRFT_MARKFORREDACT }
+		{ desc: "highlight", val: Dynamsoft.DWT.EnumDWT_OCRFindTextAction.OCRFT_HIGHLIGHT },
+		{ desc: "strikeout", val: Dynamsoft.DWT.EnumDWT_OCRFindTextAction.OCRFT_STRIKEOUT },
+		{ desc: "mark for redact", val: Dynamsoft.DWT.EnumDWT_OCRFindTextAction.OCRFT_MARKFORREDACT }
 	], OCRLanguages = [
 		{ desc: "English", val: "eng" },
 		{ desc: "Arabic", val: "arabic" },
@@ -44,38 +44,38 @@ var DWObject, ObjString, arySelectedAreas = [], bMultipage, bClearResult = true,
 		{ desc: "Italian", val: "italian" },
 		{ desc: "Spanish", val: "spanish" }
 	], OCRRecognitionModule = [
-		{ desc: "auto", val: EnumDWT_OCRProRecognitionModule.OCRPM_AUTO },
-		{ desc: "most accurate", val: EnumDWT_OCRProRecognitionModule.OCRPM_MOSTACCURATE },
-		{ desc: "balanced", val: EnumDWT_OCRProRecognitionModule.OCRPM_BALANCED },
-		{ desc: "fastest", val: EnumDWT_OCRProRecognitionModule.OCRPM_FASTEST }
+		{ desc: "auto", val: Dynamsoft.DWT.EnumDWT_OCRProRecognitionModule.OCRPM_AUTO },
+		{ desc: "most accurate", val: Dynamsoft.DWT.EnumDWT_OCRProRecognitionModule.OCRPM_MOSTACCURATE },
+		{ desc: "balanced", val: Dynamsoft.DWT.EnumDWT_OCRProRecognitionModule.OCRPM_BALANCED },
+		{ desc: "fastest", val: Dynamsoft.DWT.EnumDWT_OCRProRecognitionModule.OCRPM_FASTEST }
 	], OCROutputFormat = [
-		{ desc: "STRING", val: EnumDWT_OCRProOutputFormat.OCRPFT_TXTS },
-		{ desc: "TXT", val: EnumDWT_OCRProOutputFormat.OCRPFT_TXTS },
-		{ desc: "CSV", val: EnumDWT_OCRProOutputFormat.OCRPFT_TXTCSV },
-		{ desc: "Text Formatted", val: EnumDWT_OCRProOutputFormat.OCRPFT_TXTF },
-		{ desc: "XML", val: EnumDWT_OCRProOutputFormat.OCRPFT_XML },
-		{ desc: "PDF", val: EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF },
-		{ desc: "PDF with MRC compression", val: EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF_MRC }
+		{ desc: "STRING", val: Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_TXTS },
+		{ desc: "TXT", val: Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_TXTS },
+		{ desc: "CSV", val: Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_TXTCSV },
+		{ desc: "Text Formatted", val: Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_TXTF },
+		{ desc: "XML", val: Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_XML },
+		{ desc: "PDF", val: Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF },
+		{ desc: "PDF with MRC compression", val: Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF_MRC }
 	], OCRPDFVersion = [
 		{ desc: "", val: "" },
-		{ desc: "1.0", val: EnumDWT_OCRProPDFVersion.OCRPPDFV_0 },
-		{ desc: "1.1", val: EnumDWT_OCRProPDFVersion.OCRPPDFV_1 },
-		{ desc: "1.2", val: EnumDWT_OCRProPDFVersion.OCRPPDFV_2 },
-		{ desc: "1.3", val: EnumDWT_OCRProPDFVersion.OCRPPDFV_3 },
-		{ desc: "1.4", val: EnumDWT_OCRProPDFVersion.OCRPPDFV_4 },
-		{ desc: "1.5", val: EnumDWT_OCRProPDFVersion.OCRPPDFV_5 },
-		{ desc: "1.6", val: EnumDWT_OCRProPDFVersion.OCRPPDFV_6 },
-		{ desc: "1.7", val: EnumDWT_OCRProPDFVersion.OCRPPDFV_7 }
+		{ desc: "1.0", val: Dynamsoft.DWT.EnumDWT_OCRProPDFVersion.OCRPPDFV_0 },
+		{ desc: "1.1", val: Dynamsoft.DWT.EnumDWT_OCRProPDFVersion.OCRPPDFV_1 },
+		{ desc: "1.2", val: Dynamsoft.DWT.EnumDWT_OCRProPDFVersion.OCRPPDFV_2 },
+		{ desc: "1.3", val: Dynamsoft.DWT.EnumDWT_OCRProPDFVersion.OCRPPDFV_3 },
+		{ desc: "1.4", val: Dynamsoft.DWT.EnumDWT_OCRProPDFVersion.OCRPPDFV_4 },
+		{ desc: "1.5", val: Dynamsoft.DWT.EnumDWT_OCRProPDFVersion.OCRPPDFV_5 },
+		{ desc: "1.6", val: Dynamsoft.DWT.EnumDWT_OCRProPDFVersion.OCRPPDFV_6 },
+		{ desc: "1.7", val: Dynamsoft.DWT.EnumDWT_OCRProPDFVersion.OCRPPDFV_7 }
 	], OCRPDFAVersion = [
 		{ desc: "", val: "" },
-		{ desc: "pdf/a-1a", val: EnumDWT_OCRProPDFAVersion.OCRPPDFAV_1A },
-		{ desc: "pdf/a-1b", val: EnumDWT_OCRProPDFAVersion.OCRPPDFAV_1B },
-		{ desc: "pdf/a-2a", val: EnumDWT_OCRProPDFAVersion.OCRPPDFAV_2A },
-		{ desc: "pdf/a-2b", val: EnumDWT_OCRProPDFAVersion.OCRPPDFAV_2B },
-		{ desc: "pdf/a-2u", val: EnumDWT_OCRProPDFAVersion.OCRPPDFAV_2U },
-		{ desc: "pdf/a-3a", val: EnumDWT_OCRProPDFAVersion.OCRPPDFAV_3A },
-		{ desc: "pdf/a-3b", val: EnumDWT_OCRProPDFAVersion.OCRPPDFAV_3B },
-		{ desc: "pdf/a-3u", val: EnumDWT_OCRProPDFAVersion.OCRPPDFAV_3U }
+		{ desc: "pdf/a-1a", val: Dynamsoft.DWT.EnumDWT_OCRProPDFAVersion.OCRPPDFAV_1A },
+		{ desc: "pdf/a-1b", val: Dynamsoft.DWT.EnumDWT_OCRProPDFAVersion.OCRPPDFAV_1B },
+		{ desc: "pdf/a-2a", val: Dynamsoft.DWT.EnumDWT_OCRProPDFAVersion.OCRPPDFAV_2A },
+		{ desc: "pdf/a-2b", val: Dynamsoft.DWT.EnumDWT_OCRProPDFAVersion.OCRPPDFAV_2B },
+		{ desc: "pdf/a-2u", val: Dynamsoft.DWT.EnumDWT_OCRProPDFAVersion.OCRPPDFAV_2U },
+		{ desc: "pdf/a-3a", val: Dynamsoft.DWT.EnumDWT_OCRProPDFAVersion.OCRPPDFAV_3A },
+		{ desc: "pdf/a-3b", val: Dynamsoft.DWT.EnumDWT_OCRProPDFAVersion.OCRPPDFAV_3B },
+		{ desc: "pdf/a-3u", val: Dynamsoft.DWT.EnumDWT_OCRProPDFAVersion.OCRPPDFAV_3U }
 
 	];
 
@@ -91,7 +91,7 @@ function downloadOCRPro_btn() {
 		ObjString.push('<p class="tc mt15 mb15"><input type="button" value="Install OCR Pro" onclick="downloadOCRPro();" class="btn lgBtn bgBlue" /><hr></p>');
 		ObjString.push('<i><strong>The installation is a one-time process</strong> <br />It might take some time because the module is around <strong>90MB</strong> in size.</i>');
 		ObjString.push('</div>');
-		Dynamsoft.WebTwainEnv.ShowDialog(400, 310, ObjString.join(''));
+		Dynamsoft.DWT.ShowDialog(400, 310, ObjString.join(''));
 		if (document.getElementsByClassName("dynamsoft-dialog-close")[0])
 			document.getElementsByClassName("dynamsoft-dialog-close")[0].style.display = "none";
 	}
@@ -111,7 +111,7 @@ function downloadOCRPro() {
 }
 
 function Dynamsoft_OnReady() {
-	DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer'); // Get the Dynamic Web TWAIN object that is embeded in the div with id 'dwtcontrolContainer'
+	DWObject = Dynamsoft.DWT.GetWebTwain('dwtcontrolContainer'); // Get the Dynamic Web TWAIN object that is embeded in the div with id 'dwtcontrolContainer'
 	if (DWObject) {
 		var i;
 		DWObject.Viewer.width = 504;
@@ -148,9 +148,9 @@ function Dynamsoft_OnImageAreaSelected(index, rect) {
 	if (rect.length > 0) {
         var currentRect = rect[rect.length - 1];
 		if (arySelectedAreas.length + 2 > rect.length)
-			arySelectedAreas[rect.length - 1] = [index, currentRect.x, currentRect.y, currentRect.x + currentRect.width, currentRect.y + currentRect.heidht, rect.length];
+			arySelectedAreas[rect.length - 1] = [index, currentRect.x, currentRect.y, currentRect.x + currentRect.width, currentRect.y + currentRect.height, rect.length];
 		else
-			arySelectedAreas.push(index, currentRect.x, currentRect.y, currentRect.x + currentRect.width, currentRect.y + currentRect.heidht, rect.length);
+			arySelectedAreas.push(index, currentRect.x, currentRect.y, currentRect.x + currentRect.width, currentRect.y + currentRect.height, rect.length);
 	}
 }
 
@@ -182,7 +182,7 @@ function LoadImages() {
 	if (DWObject) {
 		if (DWObject.Addon && DWObject.Addon.PDF) {
 			DWObject.Addon.PDF.SetResolution(300);
-			DWObject.Addon.PDF.SetConvertMode(EnumDWT_ConvertMode.CM_RENDERALL);
+			DWObject.Addon.PDF.SetConvertMode(Dynamsoft.DWT.EnumDWT_ConvertMode.CM_RENDERALL);
 		}
 		DWObject.LoadImageEx('', 5,
 			function () {
@@ -196,12 +196,12 @@ function LoadImages() {
 
 function SetIfUseRedaction() {
 	var selectValue = OCROutputFormat[document.getElementById("ddlOCROutputFormat").selectedIndex].val;
-	if (selectValue == EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF ||
-		selectValue == EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF_MRC) {
+	if (selectValue == Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF ||
+		selectValue == Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF_MRC) {
 		document.getElementById("divVersion").style.display = "";
 		document.getElementById("divIfUseRedaction").style.display = "";
 	}
-	else if (selectValue == EnumDWT_OCRProOutputFormat.OCRPFT_TXTF) {
+	else if (selectValue == Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_TXTF) {
 		document.getElementById("divVersion").style.display = "none";
 		document.getElementById("divIfUseRedaction").style.display = "";
 	}
@@ -296,24 +296,24 @@ function DoOCR() {
 		_ocrResultFileType = "";
 		if (document.getElementById("ddlOCROutputFormat").selectedIndex != 0) {
 			switch (OCROutputFormat[document.getElementById("ddlOCROutputFormat").selectedIndex].val) {
-				case EnumDWT_OCRProOutputFormat.OCRPFT_TXTS:
+				case Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_TXTS:
 					_ocrResultFileType = ".txt";
 					saveTye = "Plain Text(*.txt)";
 					break;
-				case EnumDWT_OCRProOutputFormat.OCRPFT_TXTCSV:
+				case Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_TXTCSV:
 					_ocrResultFileType = ".csv";
 					saveTye = "CSV(*.csv)";
 					break;
-				case EnumDWT_OCRProOutputFormat.OCRPFT_TXTF:
+				case Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_TXTF:
 					_ocrResultFileType = ".rtf";
 					saveTye = "Rich Text Format(*.rtf)";
 					break;
-				case EnumDWT_OCRProOutputFormat.OCRPFT_XML:
+				case Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_XML:
 					_ocrResultFileType = ".xml";
 					saveTye = "XML Document(*.xml)";
 					break;
-				case EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF:
-				case EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF_MRC:
+				case Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF:
+				case Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF_MRC:
 					_ocrResultFileType = ".pdf";
 					saveTye = "PDF(*.pdf)";
 					break;
@@ -339,8 +339,8 @@ function DoOCRInner() {
 		settings.Languages = OCRLanguages[document.getElementById("ddlLanguages").selectedIndex].val;
 		settings.OutputFormat = OCROutputFormat[document.getElementById("ddlOCROutputFormat").selectedIndex].val;
 		var selectValue = OCROutputFormat[document.getElementById("ddlOCROutputFormat").selectedIndex].val;
-		if (selectValue == EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF ||
-			selectValue == EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF_MRC) {
+		if (selectValue == Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF ||
+			selectValue == Dynamsoft.DWT.EnumDWT_OCRProOutputFormat.OCRPFT_IOTPDF_MRC) {
 			bMultipage = true;
 			settings.PDFVersion = OCRPDFVersion[document.getElementById("ddlPDFVersion").selectedIndex].val;
 			settings.PDFAVersion = OCRPDFAVersion[document.getElementById("ddlPDFAVersion").selectedIndex].val;
@@ -368,10 +368,11 @@ function DoOCRInner() {
 		}
 		else if (bMultipage) {
 			var nCount = DWObject.HowManyImagesInBuffer;
-			DWObject.SelectedImagesCount = nCount;
+			var arySelectIndex = [];
 			for (i = 0; i < nCount; i++) {
-				DWObject.SetSelectedImageIndex(i, i);
+				arySelectIndex.push(i);
 			}
+			DWObject.SelectImages(arySelectIndex);
 			DWObject.Addon.OCRPro.RecognizeSelectedImages(OnOCRSelectedImagesSuccess, GetErrorInfo);
 		}
 		else {
