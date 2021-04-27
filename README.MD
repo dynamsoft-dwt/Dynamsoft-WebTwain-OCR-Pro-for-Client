@@ -2,6 +2,10 @@
 
 This sample demonstrates how to use Dynamic Web TWAIN's OCR Professional add-on to do OCR on the client side (within client-side browsers).
 
+## What You Should Know
+- [![](https://img.shields.io/badge/Download-Offline%20SDK-orange)](https://www.dynamsoft.com/web-twain/downloads)
+- [![](https://img.shields.io/badge/Get-30--day%20FREE%20Trial%20License-blue)](https://www.dynamsoft.com/customer/license/trialLicense/?product=dwt)
+
 ## Compatibility
 
 Windows only, IE 11, Edge, Chrome/Firefox 27+
